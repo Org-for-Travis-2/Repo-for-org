@@ -1,12 +1,12 @@
 os: linux
 
-
+vm:
+  size: [large]
 language: java
 services:
   - docker
 cache: bundler
 dist: bionic
-
 
 install: skip
 
@@ -15,9 +15,19 @@ jobs:
     - name: failing
       script: true
 
+    # MacStadium Build
+    - name: macstadium-build
+      os: osx
+      osx_image: xcode14 
+      language: shell
+      script:
+        - echo "Running on MacStadium"
+        - sw_vers  
+
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
+
